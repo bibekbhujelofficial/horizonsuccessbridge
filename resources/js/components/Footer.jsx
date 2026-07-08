@@ -12,7 +12,7 @@ import {
     FaClock,
     FaPhoneAlt,
 } from "react-icons/fa";
-import { footerData, topBarData } from "../data/data";
+import { footerData } from "../data/data";
 
 const iconMap = {
     FaFacebookF: FaFacebookF,
@@ -47,7 +47,7 @@ const Footer = () => {
             <div className="absolute bottom-0 left-1/4 w-[500px] h-[500px] bg-secondary/15 rounded-full blur-[150px] translate-y-1/2 pointer-events-none mix-blend-screen"></div>
 
             <div className="max-w-screen-2xl mx-auto px-6 md:px-12 relative z-10">
-                {/* Global Offices Area */}
+                {/* Global Offices Area
                 <div className="pb-16 border-b border-white/10 mb-20">
                     <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
                         <div className="space-y-3">
@@ -79,11 +79,11 @@ const Footer = () => {
                                 </div>
 
                                 <div className="space-y-4">
-                                    {/* <div className="flex items-start gap-2.5 text-[11px] font-bold text-white/60 leading-relaxed">
+                                    <div className="flex items-start gap-2.5 text-[11px] font-bold text-white/60 leading-relaxed">
                                         <FaMapMarkerAlt size={12} className="text-secondary mt-0.5 shrink-0" />
                                         <span>{office.address}</span>
-                                    </div> */}
-                                    {/* <a
+                                    </div>
+                                    <a
                                         href={`tel:${office.phone.replace(/\s+/g, "")}`}
                                         className="flex items-center gap-2.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors"
                                     >
@@ -92,7 +92,7 @@ const Footer = () => {
                                             className="text-secondary"
                                         />
                                         {office.phone}
-                                    </a> */}
+                                    </a>
                                     <a
                                         href={`mailto:${office.email}`}
                                         className="flex items-center gap-2.5 text-[11px] font-bold text-white/70 hover:text-white transition-colors break-all"
@@ -108,6 +108,7 @@ const Footer = () => {
                         ))}
                     </div>
                 </div>
+                */}
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
                     {/* Brand Section (Wider Column) */}
