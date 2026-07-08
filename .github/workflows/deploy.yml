@@ -1,0 +1,51 @@
+name: Deploy to Hostinger via SSH
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo, pdo_mysql
+          coverage: none
+
+      - name: Install Composer Dependencies
+        run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Build Frontend Assets
+        run: npm run build
+
+      - name: Deploy via SSH (rsync)
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT || '22' }}
+          TARGET: "/home/u412605345/domains/horizonsuccessbridge.com/public_html/"
+          EXCLUDE: "/node_modules/, /.git/, /.github/, /tests/, /.env, /horizonsuccessbridge.zip"
+          SCRIPT_AFTER: |
+            cd /home/u412605345/domains/horizonsuccessbridge.com/public_html
+            php artisan config:clear
+            php artisan view:clear
+            php artisan route:clear
+            php artisan migrate --force
